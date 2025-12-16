@@ -1,7 +1,3 @@
-Here’s a **short, clean GitHub-friendly README** (concise but still professional):
-
----
-
 # 🛒 Responsive E-Commerce Website UI
 
 A fully responsive e-commerce website UI built using **HTML, CSS, and JavaScript**, focused on modern UI/UX principles and performance optimization. The project simulates a real-world online shopping experience and is suitable for frontend portfolios.
@@ -52,6 +48,4 @@ Live deployment supported via **GitHub Pages**, **Netlify**, or **Vercel**.
 
 This project strengthens frontend development skills and serves as a **portfolio-ready e-commerce UI**.
 
----
 
-If you want it **even shorter (one-screen README)** or tailored for **recruiters**, I can refine it further.

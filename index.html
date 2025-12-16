@@ -3,13 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-Commerce Frontend</title>
+    <title>E-Commerce</title>
     <link rel="stylesheet" href="styles/main.css" />
+    <script defer src="scripts/app.js"></script>
   </head>
   <body>
-    <header>
-      <h1>Welcome to Our Online Store</h1>
+    <header class="header">
+      <div class="logo">ShopEase</div>
+
+      <nav class="nav" id="navMenu">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+
+      <div class="header-right">
+        <input type="text" class="search" placeholder="Search products..." />
+
+        <div class="cart">
+          🛒
+          <span class="badge">2</span>
+        </div>
+
+        <div class="hamburger" id="hamburger">☰</div>
+      </div>
     </header>
-    <script src="scripts/app.js"></script>
   </body>
 </html>

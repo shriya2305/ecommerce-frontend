@@ -3,31 +3,177 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-Commerce</title>
+    <title>LilacStore - Your Shopping Destination</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <script defer src="scripts/app.js"></script>
+    <link rel="stylesheet" href="styles/responsive.css" />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
+    <!-- Header -->
     <header class="header">
-      <div class="logo">ShopEase</div>
+      <div class="container">
+        <div class="header-content">
+          <!-- Logo -->
+          <div class="logo">
+            <div class="logo-icon">L</div>
+            <span class="logo-text">LilacStore</span>
+          </div>
 
-      <nav class="nav" id="navMenu">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </nav>
+          <!-- Desktop Navigation -->
+          <nav class="nav-desktop">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#products" class="nav-link">Products</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </nav>
 
-      <div class="header-right">
-        <input type="text" class="search" placeholder="Search products..." />
+          <!-- Right Side Icons -->
+          <div class="header-icons">
+            <!-- Search Icon -->
+            <button class="icon-btn search-btn">
+              <i data-lucide="search"></i>
+            </button>
 
-        <div class="cart">
-          🛒
-          <span class="badge">2</span>
+            <!-- Wishlist Icon -->
+            <button class="icon-btn wishlist-btn">
+              <i data-lucide="heart"></i>
+            </button>
+
+            <!-- Cart Icon with Badge -->
+            <button class="icon-btn cart-btn">
+              <i data-lucide="shopping-cart"></i>
+              <span class="cart-badge">3</span>
+            </button>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="icon-btn hamburger-btn">
+              <i data-lucide="menu" class="menu-icon"></i>
+              <i data-lucide="x" class="close-icon hidden"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="hamburger" id="hamburger">☰</div>
+        <!-- Mobile Navigation -->
+        <nav class="nav-mobile">
+          <a href="#home" class="nav-link-mobile">Home</a>
+          <a href="#products" class="nav-link-mobile">Products</a>
+          <a href="#about" class="nav-link-mobile">About</a>
+          <a href="#contact" class="nav-link-mobile">Contact</a>
+
+          <!-- Mobile Search Bar -->
+          <div class="mobile-search">
+            <input
+              type="text"
+              placeholder="Search products..."
+              class="search-input"
+            />
+            <i data-lucide="search" class="search-icon"></i>
+          </div>
+        </nav>
       </div>
     </header>
+
+    <!-- Alternative Hero Section (Replace the main one) -->
+    <section class="hero-minimal">
+      <div class="container">
+        <div class="hero-minimal-content">
+          <span class="hero-minimal-tag">New Collection 2025</span>
+          <h1 class="hero-minimal-title">Elevate Your Style</h1>
+          <p class="hero-minimal-text">
+            Premium quality products designed for modern living
+          </p>
+          <button class="hero-minimal-btn">
+            Explore Now
+            <svg
+              class="btn-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Grid Section -->
+    <section class="product-grid-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="trending-up"></i>
+            Trending Products
+          </div>
+          <h2 class="section-title">Featured Collection</h2>
+          <p class="section-subtitle">
+            Discover our handpicked selection of premium products
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons" id="filterButtons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="electronics">
+            Electronics
+          </button>
+          <button class="filter-btn" data-filter="jewelery">Jewelery</button>
+          <button class="filter-btn" data-filter="men's clothing">
+            Men's Clothing
+          </button>
+          <button class="filter-btn" data-filter="women's clothing">
+            Women's Clothing
+          </button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-grid" id="loadingGrid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="productGrid"></div>
+
+        <!-- No Products Message -->
+        <div class="no-products" id="noProducts" style="display: none">
+          <i data-lucide="filter"></i>
+          <h3>No products found</h3>
+          <p>Try selecting a different category</p>
+        </div>
+
+        <!-- Load More Button -->
+        <div
+          class="load-more-container"
+          id="loadMoreContainer"
+          style="display: none"
+        >
+          <button class="load-more-btn" id="loadMoreBtn">
+            Load More Products
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Remove the old static product grid -->
+
+    <script src="scripts/app.js"></script>
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+    </script>
   </body>
 </html>

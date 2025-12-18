@@ -972,3 +972,144 @@ function initializeExistingFeatures() {
     });
   });
 }
+
+// Add this function to make product cards clickable
+function createProductCard(product, index) {
+  const card = document.createElement("div");
+  card.className = "product-card";
+  card.style.animationDelay = `${index * 50}ms`;
+  card.style.cursor = "pointer";
+
+  // Make entire card clickable
+  card.addEventListener("click", function (e) {
+    // Don't navigate if clicking on add to cart button
+    if (
+      !e.target.closest(".add-to-cart-btn") &&
+      !e.target.closest(".wishlist-btn")
+    ) {
+      window.location.href = `product.html?id=${product.id}`;
+    }
+  });
+
+  const rating = product.rating || { rate: 0, count: 0 };
+  const stars = generateStars(rating.rate);
+
+  card.innerHTML = `
+        <div class="product-image-container">
+            <img 
+                data-src="${product.image}" 
+                alt="${product.title}" 
+                class="product-image lazy-load" 
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect fill='%23f3f4f6' width='300' height='300'/%3E%3C/svg%3E"
+                onerror="this.src='https://via.placeholder.com/300x300/9333ea/ffffff?text=Image+Error'"
+            >
+            <button class="wishlist-btn" onclick="toggleWishlist(${product.id})" aria-label="Add to wishlist">
+                <i data-lucide="heart"></i>
+            </button>
+            <div class="product-badge">NEW</div>
+        </div>
+        <div class="product-info">
+            <span class="product-category">${product.category}</span>
+            <h3 class="product-title" title="${product.title}">${product.title}</h3>
+            <div class="product-rating">
+                <div class="stars">${stars}</div>
+                <span class="rating-count">(${rating.count})</span>
+            </div>
+            <div class="product-footer">
+                <span class="product-price">$${product.price}</span>
+                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" data-product-id="${product.id}">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    `;
+
+  return card;
+}
+
+// Update the addToCart function to prevent default behavior
+function addToCart(productId) {
+  event.stopPropagation(); // Prevent card click
+
+  const product = appState.products.find((p) => p.id === productId);
+  if (!product) return;
+
+  // Get cart from localStorage
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const cartItem = {
+    id: product.id,
+    title: product.title,
+    price: product.price,
+    image: product.image,
+    category: product.category,
+    quantity: 1,
+    addedAt: new Date().toISOString(),
+  };
+
+  // Check if item already exists
+  const existingIndex = cart.findIndex((item) => item.id === product.id);
+  if (existingIndex > -1) {
+    cart[existingIndex].quantity += 1;
+  } else {
+    cart.push(cartItem);
+  }
+
+  // Save to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Update cart badge
+  updateCartBadge();
+
+  // Visual feedback
+  const button = event.target;
+  const originalText = button.textContent;
+  button.textContent = "✓ Added!";
+  button.classList.add("added");
+  button.disabled = true;
+
+  setTimeout(() => {
+    button.textContent = originalText;
+    button.classList.remove("added");
+    button.disabled = false;
+  }, 1500);
+
+  console.log("🛒 Cart updated:", cart);
+}
+
+// Update cart badge from localStorage
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartBadge = document.querySelector(".cart-badge");
+  if (cartBadge) {
+    cartBadge.textContent = totalItems;
+    if (totalItems > 0) {
+      cartBadge.classList.add("cart-pulse");
+      setTimeout(() => cartBadge.classList.remove("cart-pulse"), 300);
+    }
+  }
+}
+
+// Toggle wishlist with localStorage
+function toggleWishlist(productId) {
+  event.stopPropagation(); // Prevent card click
+
+  const button = event.target.closest(".wishlist-btn");
+  button.classList.toggle("active");
+
+  // Get wishlist from localStorage
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const product = appState.products.find((p) => p.id === productId);
+
+  const index = wishlist.findIndex((item) => item.id === productId);
+  if (index > -1) {
+    wishlist.splice(index, 1);
+    console.log("❤️ Removed from wishlist:", productId);
+  } else {
+    wishlist.push(product);
+    console.log("❤️ Added to wishlist:", productId);
+  }
+
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}

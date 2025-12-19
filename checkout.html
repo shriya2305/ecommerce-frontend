@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">L</span>
+        <span>LilacStore</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </header>
+
+    <section class="checkout-page">
+      <h1>Checkout</h1>
+
+      <div class="checkout-container">
+        <!-- SHIPPING DETAILS -->
+        <form class="checkout-form" id="checkoutForm">
+          <h2>Shipping Details</h2>
+
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="text" placeholder="Street Address" required />
+          <input type="text" placeholder="City" required />
+          <input type="text" placeholder="State" required />
+          <input type="text" placeholder="Postal Code" required />
+
+          <button type="submit" class="primary-btn">Place Order</button>
+        </form>
+
+        <!-- ORDER SUMMARY -->
+        <div class="order-summary">
+          <h2>Order Summary</h2>
+          <div id="summaryItems"></div>
+
+          <hr />
+          <p>
+            Total: <strong>$<span id="summaryTotal">0</span></strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script src="scripts/checkout.js"></script>
+  </body>
+</html>

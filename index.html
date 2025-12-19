@@ -6,7 +6,9 @@
     <title>LilacStore</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
+
   <body>
+    <!-- HEADER -->
     <header class="header">
       <div class="logo">
         <span class="logo-icon">L</span>
@@ -14,42 +16,49 @@
       </div>
 
       <nav class="nav">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <div class="icons">
         <input type="text" id="searchInput" placeholder="Search..." />
         <a href="wishlist.html" id="wishlistIcon">♡</a>
-        <span class="cart" id="cartIcon" ></span>
-        <a href="cart.html" class="cart">
-        🛒<small id="cartCount">0</small>
-       </a>
+        <a href="cart.html" class="cart"> 🛒<small id="cartCount">0</small> </a>
       </div>
     </header>
 
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="home">
       <span class="pill">New Collection 2025</span>
       <h1>Elevate Your Style</h1>
       <p>Premium quality products designed for modern living</p>
-      <button class="primary-btn">Explore Now →</button>
+      <a href="#products" class="primary-btn">Explore Now →</a>
     </section>
 
-    <section class="products">
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+      <h2 style="text-align: center; margin-bottom: 30px">Featured Products</h2>
       <div class="product-grid" id="productGrid"></div>
     </section>
 
+    <!-- ABOUT -->
+    <section id="about" style="padding: 60px; text-align: center">
+      <h2>About Us</h2>
+      <p>
+        LilacStore brings premium-quality products with modern design, curated
+        for comfort and everyday elegance.
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="padding: 60px; text-align: center">
+      <h2>Contact</h2>
+      <p>Email: support@lilacstore.com</p>
+    </section>
+
+    <!-- SCRIPT -->
     <script src="scripts/app.js"></script>
   </body>
 </html>
-
-<section class="products">
-  <h2>Featured Products</h2>
-
-  <div id="loader">Loading products...</div>
-  <div id="error" class="error"></div>
-
-  <div class="product-grid" id="productGrid"></div>
-</section>

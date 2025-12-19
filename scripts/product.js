@@ -13,7 +13,10 @@ if (!product) {
   container.innerHTML = "<p>Product not found.</p>";
 } else {
   container.innerHTML = `
-    <img src="${product.image}">
+    <div class="zoom-container">
+      <img src="${product.image}" alt="${product.title}">
+    </div>
+
     <div class="product-info">
       <h1>${product.title}</h1>
       <p>${product.description}</p>
@@ -21,7 +24,7 @@ if (!product) {
 
       <div class="qty">
         <button onclick="changeQty(-1)">−</button>
-        <span id="qty">${qty}</span>
+        <span id="qty">1</span>
         <button onclick="changeQty(1)">+</button>
       </div>
 

@@ -12,7 +12,7 @@ fetch("https://fakestoreapi.com/products")
   .then((res) => res.json())
   .then((data) => {
     allProducts = data;
-    // ✅ ADD THIS LINE HERE (STEP 4 STORAGE)
+    //  ADD THIS LINE HERE (STEP 4 STORAGE)
     localStorage.setItem("products", JSON.stringify(allProducts));
 
     renderProducts(allProducts);
@@ -27,7 +27,7 @@ function renderProducts(products) {
     productGrid.innerHTML += `
       <div class="product-card">
         <div class="product-img">
-          <span class="tag">NEW</span>
+          
           <span class="wish" onclick="toggleWishlist(${product.id})">
             ${isWishlisted ? "❤️" : "🤍"}
           </span>
@@ -81,6 +81,10 @@ function addToCart(id) {
 function updateCartCount() {
   const total = cart.reduce((sum, item) => sum + item.qty, 0);
   cartCount.textContent = total;
+}
+
+function openProduct(id) {
+  window.location.href = `product.html?id=${id}`;
 }
 
 function toggleWishlist(id) {

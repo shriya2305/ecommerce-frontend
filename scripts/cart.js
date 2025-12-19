@@ -4,6 +4,8 @@ const cartItemsEl = document.getElementById("cartItems");
 const totalItemsEl = document.getElementById("totalItems");
 const totalPriceEl = document.getElementById("totalPrice");
 
+const checkoutBtn = document.getElementById("checkoutBtn");
+
 function renderCart() {
   cartItemsEl.innerHTML = "";
 
@@ -68,3 +70,11 @@ function saveAndRender() {
 }
 
 renderCart();
+checkoutBtn.disabled = cart.length === 0;
+checkoutBtn.style.opacity = cart.length === 0 ? "0.5" : "1";
+checkoutBtn.style.cursor = cart.length === 0 ? "not-allowed" : "pointer";
+
+checkoutBtn.addEventListener("click", () => {
+  if (cart.length === 0) return;
+  window.location.href = "checkout.html";
+});

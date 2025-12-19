@@ -12,6 +12,9 @@ fetch("https://fakestoreapi.com/products")
   .then((res) => res.json())
   .then((data) => {
     allProducts = data;
+    // ✅ ADD THIS LINE HERE (STEP 4 STORAGE)
+    localStorage.setItem("products", JSON.stringify(allProducts));
+
     renderProducts(allProducts);
   });
 
@@ -28,12 +31,22 @@ function renderProducts(products) {
           <span class="wish" onclick="toggleWishlist(${product.id})">
             ${isWishlisted ? "❤️" : "🤍"}
           </span>
-          <img src="${product.image}" loading="lazy">
+
+          <img src="${product.image}" loading="lazy"
+               onclick="openProduct(${product.id})"
+               style="cursor:pointer">
         </div>
+
         <div class="product-body">
           <p class="category">${product.category.toUpperCase()}</p>
-          <h3>${product.title.slice(0, 40)}</h3>
+
+          <h3 onclick="openProduct(${product.id})"
+              style="cursor:pointer">
+            ${product.title.slice(0, 40)}
+          </h3>
+
           <span class="price">$${product.price}</span>
+
           <button class="add-btn" onclick="addToCart(${product.id})">
             Add to Cart
           </button>

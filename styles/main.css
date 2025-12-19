@@ -280,3 +280,45 @@ body {
     flex-direction: column;
   }
 }
+
+.product-detail {
+  padding: 60px;
+  display: flex;
+  gap: 50px;
+}
+
+.product-detail img {
+  width: 350px;
+  height: 350px;
+  object-fit: contain;
+  background: #ddd6fe;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.product-info h1 {
+  margin-bottom: 15px;
+}
+
+.product-info p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.qty button {
+  padding: 6px 14px;
+}
+
+@media (max-width: 900px) {
+  .product-detail {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -76,5 +76,11 @@ checkoutBtn.style.cursor = cart.length === 0 ? "not-allowed" : "pointer";
 
 checkoutBtn.addEventListener("click", () => {
   if (cart.length === 0) return;
-  window.location.href = "checkout.html";
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!user) {
+    window.location.href = "auth.html";
+  } else {
+    window.location.href = "checkout.html";
+  }
 });

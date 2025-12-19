@@ -1,3 +1,16 @@
+const loginLink = document.getElementById("loginLink");
+const user = JSON.parse(localStorage.getItem("currentUser"));
+
+if (loginLink && user) {
+  loginLink.textContent = `Hi, ${user.name}`;
+  loginLink.href = "#";
+
+  loginLink.onclick = () => {
+    localStorage.removeItem("currentUser");
+    window.location.reload();
+  };
+}
+
 let allProducts = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -108,3 +121,7 @@ document.getElementById("wishlistIcon").onclick = () => {
 };
 
 window.addEventListener("focus", updateCartCount);
+
+if (user) {
+  console.log("Logged in as:", user.name);
+}

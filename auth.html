@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | LilacStore</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">L</span>
+        <span>LilacStore</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </header>
+
+    <section class="auth-page">
+      <div class="auth-box">
+        <!-- LOGIN FORM -->
+        <form id="loginForm" class="auth-form active">
+          <h2>Login</h2>
+
+          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            required
+          />
+
+          <p class="error" id="loginError"></p>
+
+          <button type="submit" class="primary-btn">Login</button>
+
+          <p class="switch">
+            Don’t have an account?
+            <span onclick="showSignup()">Sign up</span>
+          </p>
+
+          <p class="forgot">Forgot Password?</p>
+        </form>
+
+        <!-- SIGNUP FORM -->
+        <form id="signupForm" class="auth-form">
+          <h2>Sign Up</h2>
+
+          <input type="text" id="name" placeholder="Full Name" required />
+          <input type="email" id="signupEmail" placeholder="Email" required />
+          <input
+            type="password"
+            id="signupPassword"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
+
+          <p class="error" id="signupError"></p>
+
+          <button type="submit" class="primary-btn">Create Account</button>
+
+          <p class="switch">
+            Already have an account?
+            <span onclick="showLogin()">Login</span>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <script src="scripts/auth.js"></script>
+  </body>
+</html>

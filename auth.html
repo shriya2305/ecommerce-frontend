@@ -6,25 +6,36 @@
     <title>Login | LilacStore</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
+
   <body>
+    <!-- HEADER -->
     <header class="header">
       <div class="logo">
         <span class="logo-icon">L</span>
         <span>LilacStore</span>
       </div>
+
       <nav class="nav">
         <a href="index.html">Home</a>
         <a href="cart.html">Cart</a>
       </nav>
     </header>
 
+    <!-- AUTH PAGE -->
     <section class="auth-page">
       <div class="auth-box">
+
         <!-- LOGIN FORM -->
         <form id="loginForm" class="auth-form active">
           <h2>Login</h2>
 
-          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email"
+            required
+          />
+
           <input
             type="password"
             id="loginPassword"
@@ -36,7 +47,7 @@
 
           <button type="submit" class="primary-btn">Login</button>
 
-          <p class="switch">
+          <p class="switch-text">
             Don’t have an account?
             <span onclick="showSignup()">Sign up</span>
           </p>
@@ -48,14 +59,27 @@
         <form id="signupForm" class="auth-form">
           <h2>Sign Up</h2>
 
-          <input type="text" id="name" placeholder="Full Name" required />
-          <input type="email" id="signupEmail" placeholder="Email" required />
+          <input
+            type="text"
+            id="signupName"
+            placeholder="Full Name"
+            required
+          />
+
+          <input
+            type="email"
+            id="signupEmail"
+            placeholder="Email"
+            required
+          />
+
           <input
             type="password"
             id="signupPassword"
             placeholder="Password"
             required
           />
+
           <input
             type="password"
             id="confirmPassword"
@@ -65,16 +89,30 @@
 
           <p class="error" id="signupError"></p>
 
-          <button type="submit" class="primary-btn">Create Account</button>
+          <button type="submit" class="primary-btn">
+            Create Account
+          </button>
 
-          <p class="switch">
+          <p class="switch-text">
             Already have an account?
             <span onclick="showLogin()">Login</span>
           </p>
         </form>
+
       </div>
     </section>
 
-   <script type="module" src="scripts/auth.js"></script>
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <a href="index.html">🏠<span>Home</span></a>
+      <a href="cart.html">🛒<span>Cart</span></a>
+      <a href="wishlist.html">♡<span>Wishlist</span></a>
+      <a href="auth.html">👤<span>Account</span></a>
+    </nav>
+
+    <script type="module" src="scripts/auth.js"></script>
   </body>
 </html>
+
+
+

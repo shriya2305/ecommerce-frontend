@@ -9,7 +9,8 @@ const signupForm = document.getElementById("signupForm");
 const loginError = document.getElementById("loginError");
 const signupError = document.getElementById("signupError");
 
-/* SWITCHING */
+/* ---------- FORM SWITCHING ---------- */
+
 window.showSignup = () => {
   loginForm.classList.remove("active");
   signupForm.classList.add("active");
@@ -20,33 +21,48 @@ window.showLogin = () => {
   loginForm.classList.add("active");
 };
 
-/* SIGN UP */
-signupForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+/* ---------- SIGN UP ---------- */
 
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
+if (signupForm) {
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    signupError.textContent = "";
 
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert("Account created successfully!");
-    showLogin();
-  } catch (error) {
-    signupError.textContent = error.message;
-  }
-});
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
 
-/* LOGIN */
-loginForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    if (password !== confirm) {
+      signupError.textContent = "Passwords do not match.";
+      return;
+    }
 
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert(`Welcome ${name}! Account created successfully.`);
+      showLogin();
+    } catch (error) {
+      signupError.textContent = error.message;
+    }
+  });
+}
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "index.html";
-  } catch (error) {
-    loginError.textContent = error.message;
-  }
-});
+/* ---------- LOGIN ---------- */
+
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    loginError.textContent = "";
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "index.html";
+    } catch (error) {
+      loginError.textContent = error.message;
+    }
+  });
+}

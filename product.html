@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product</title>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
 
-<nav class="mobile-nav">
-  <a href="index.html">🏠<span>Home</span></a>
-  <a href="cart.html">🛒<span>Cart</span></a>
-  <a href="wishlist.html">♡<span>Wishlist</span></a>
-  <a href="auth.html">👤<span>Account</span></a>
-</nav>
-
+  <nav class="mobile-nav">
+    <a href="index.html">🏠<span>Home</span></a>
+    <a href="cart.html">🛒<span>Cart</span></a>
+    <a href="wishlist.html">♡<span>Wishlist</span></a>
+    <a href="auth.html">👤<span>Account</span></a>
+  </nav>
 
   <body>
     <header class="header">
@@ -25,12 +24,13 @@
         <a href="index.html">Home</a>
         <a href="cart.html">Cart</a>
       </nav>
-
-      
     </header>
 
-    <section class="product-detail" id="productDetail"></section>
+    <section class="products">
+      <h1>Your Wishlist</h1>
+      <div class="product-grid" id="wishlistGrid"></div>
+    </section>
 
-    <script src="scripts/product.js"></script>
+    <script src="scripts/wishlist.js"></script>
   </body>
 </html>

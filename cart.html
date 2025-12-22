@@ -7,26 +7,26 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
 
-<nav class="mobile-nav">
-  <a href="index.html">🏠<span>Home</span></a>
-  <a href="cart.html">🛒<span>Cart</span></a>
-  <a href="wishlist.html">♡<span>Wishlist</span></a>
-  <a href="auth.html">👤<span>Account</span></a>
-</nav>
-
-
   <body>
+    <!-- HEADER -->
     <header class="header">
       <div class="logo">
         <span class="logo-icon">L</span>
         <span>LilacStore</span>
       </div>
+
       <nav class="nav">
         <a href="index.html">Home</a>
         <a href="checkout.html">Checkout</a>
       </nav>
+
+      <!-- 🔥 LOGIN LINK GOES HERE -->
+      <div class="header-right">
+        <a href="auth.html" id="loginLink" class="auth-link">Login</a>
+      </div>
     </header>
 
+    <!-- CART PAGE -->
     <section class="cart-page">
       <h1>Your Cart</h1>
 
@@ -39,6 +39,14 @@
         </button>
       </div>
     </section>
+
+    <!-- MOBILE NAV (ALWAYS AT BOTTOM, INSIDE BODY) -->
+    <nav class="mobile-nav">
+      <a href="index.html">🏠<span>Home</span></a>
+      <a href="cart.html">🛒<span>Cart</span></a>
+      <a href="wishlist.html">♡<span>Wishlist</span></a>
+      <a href="auth.html">👤<span>Account</span></a>
+    </nav>
 
     <script type="module" src="scripts/cart.js"></script>
   </body>

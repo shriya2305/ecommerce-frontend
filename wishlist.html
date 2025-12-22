@@ -3,34 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wishlist</title>
+    <title>Wishlist | LilacStore</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
 
-  <nav class="mobile-nav">
-    <a href="index.html">🏠<span>Home</span></a>
-    <a href="cart.html">🛒<span>Cart</span></a>
-    <a href="wishlist.html">♡<span>Wishlist</span></a>
-    <a href="auth.html">👤<span>Account</span></a>
-  </nav>
-
   <body>
+    <!-- HEADER -->
     <header class="header">
       <div class="logo">
         <span class="logo-icon">L</span>
         <span>LilacStore</span>
       </div>
+
       <nav class="nav">
         <a href="index.html">Home</a>
         <a href="cart.html">Cart</a>
       </nav>
+
+      <!-- 🔥 LOGIN LINK -->
+      <div class="header-right">
+        <a href="auth.html" id="loginLink" class="auth-link">Login</a>
+      </div>
     </header>
 
+    <!-- WISHLIST -->
     <section class="products">
       <h1>Your Wishlist</h1>
       <div class="product-grid" id="wishlistGrid"></div>
     </section>
 
-    <script src="scripts/wishlist.js"></script>
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <a href="index.html">🏠<span>Home</span></a>
+      <a href="cart.html">🛒<span>Cart</span></a>
+      <a href="wishlist.html">♡<span>Wishlist</span></a>
+      <a href="auth.html">👤<span>Account</span></a>
+    </nav>
+
+    <script type="module" src="scripts/wishlist.js"></script>
   </body>
 </html>

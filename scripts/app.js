@@ -4,14 +4,16 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* ---------------- AUTH HEADER ---------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const loginLink = document.getElementById("loginLink");
 
-const loginLink = document.getElementById("loginLink");
+  if (!loginLink) return; // prevents errors on pages without header
 
-onAuthStateChanged(auth, (user) => {
-  if (loginLink) {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
-      loginLink.textContent = "Logout";
+      const name = user.email.split("@")[0];
+
+      loginLink.textContent = `Hi, ${name}`;
       loginLink.href = "#";
 
       loginLink.onclick = async () => {
@@ -21,8 +23,9 @@ onAuthStateChanged(auth, (user) => {
     } else {
       loginLink.textContent = "Login";
       loginLink.href = "auth.html";
+      loginLink.onclick = null;
     }
-  }
+  });
 });
 
 /* ---------------- DATA ---------------- */

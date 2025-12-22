@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Cart</title>
+    <title>Cart | LilacStore</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
@@ -12,32 +12,25 @@
         <span class="logo-icon">L</span>
         <span>LilacStore</span>
       </div>
-
       <nav class="nav">
         <a href="index.html">Home</a>
-        <a href="index.html#products">Products</a>
+        <a href="checkout.html">Checkout</a>
       </nav>
     </header>
 
     <section class="cart-page">
-      <h1>Your Shopping Cart</h1>
+      <h1>Your Cart</h1>
 
-      <div class="cart-container">
-        <div id="cartItems"></div>
+      <div id="cartItems"></div>
 
-        <div class="cart-summary">
-          <h2>Summary</h2>
-          <p>Total Items: <span id="totalItems">0</span></p>
-          <p>
-            Total Price: <strong>$<span id="totalPrice">0</span></strong>
-          </p>
-          <button class="primary-btn" id="checkoutBtn">
-            Proceed to Checkout
-          </button>
-        </div>
+      <div class="cart-summary">
+        <h3>Total: $<span id="cartTotal">0</span></h3>
+        <button id="checkoutBtn" class="primary-btn">
+          Proceed to Checkout
+        </button>
       </div>
     </section>
 
-    <script src="scripts/cart.js"></script>
+    <script type="module" src="scripts/cart.js"></script>
   </body>
 </html>

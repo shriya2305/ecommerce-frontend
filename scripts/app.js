@@ -1,15 +1,31 @@
+import { auth } from "./firebase.js";
+import {
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+/* ---------------- AUTH HEADER ---------------- */
+
 const loginLink = document.getElementById("loginLink");
-const user = JSON.parse(localStorage.getItem("currentUser"));
 
-if (loginLink && user) {
-  loginLink.textContent = `Hi, ${user.name}`;
-  loginLink.href = "#";
+onAuthStateChanged(auth, (user) => {
+  if (loginLink) {
+    if (user) {
+      loginLink.textContent = "Logout";
+      loginLink.href = "#";
 
-  loginLink.onclick = () => {
-    localStorage.removeItem("currentUser");
-    window.location.reload();
-  };
-}
+      loginLink.onclick = async () => {
+        await signOut(auth);
+        window.location.reload();
+      };
+    } else {
+      loginLink.textContent = "Login";
+      loginLink.href = "auth.html";
+    }
+  }
+});
+
+/* ---------------- DATA ---------------- */
 
 let allProducts = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -19,19 +35,33 @@ const productGrid = document.getElementById("productGrid");
 const cartCount = document.getElementById("cartCount");
 const searchInput = document.getElementById("searchInput");
 
+/* ---------------- CART COUNT ---------------- */
+
+function updateCartCount() {
+  if (!cartCount) return;
+  const total = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCount.textContent = total;
+}
+
 updateCartCount();
 
-fetch("https://fakestoreapi.com/products")
-  .then((res) => res.json())
-  .then((data) => {
-    allProducts = data;
-    //  ADD THIS LINE HERE (STEP 4 STORAGE)
-    localStorage.setItem("products", JSON.stringify(allProducts));
+/* ---------------- FETCH PRODUCTS ---------------- */
 
-    renderProducts(allProducts);
-  });
+if (productGrid) {
+  fetch("https://fakestoreapi.com/products")
+    .then((res) => res.json())
+    .then((data) => {
+      allProducts = data;
+      localStorage.setItem("products", JSON.stringify(allProducts));
+      renderProducts(allProducts);
+    });
+}
+
+/* ---------------- RENDER PRODUCTS ---------------- */
 
 function renderProducts(products) {
+  if (!productGrid) return;
+
   productGrid.innerHTML = "";
 
   products.forEach((product) => {
@@ -40,7 +70,6 @@ function renderProducts(products) {
     productGrid.innerHTML += `
       <div class="product-card">
         <div class="product-img">
-          
           <span class="wish" onclick="toggleWishlist(${product.id})">
             ${isWishlisted ? "❤️" : "🤍"}
           </span>
@@ -69,16 +98,24 @@ function renderProducts(products) {
   });
 }
 
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase();
-  const filtered = allProducts.filter((product) =>
-    product.title.toLowerCase().includes(query)
-  );
-  renderProducts(filtered);
-});
+/* ---------------- SEARCH ---------------- */
 
-function addToCart(id) {
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const filtered = allProducts.filter((product) =>
+      product.title.toLowerCase().includes(query)
+    );
+    renderProducts(filtered);
+  });
+}
+
+/* ---------------- GLOBAL FUNCTIONS (IMPORTANT) ---------------- */
+
+window.addToCart = function (id) {
   const product = allProducts.find((p) => p.id === id);
+  if (!product) return;
+
   const existing = cart.find((p) => p.id === id);
 
   if (existing) {
@@ -89,19 +126,15 @@ function addToCart(id) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-}
+};
 
-function updateCartCount() {
-  const total = cart.reduce((sum, item) => sum + item.qty, 0);
-  cartCount.textContent = total;
-}
-
-function openProduct(id) {
+window.openProduct = function (id) {
   window.location.href = `product.html?id=${id}`;
-}
+};
 
-function toggleWishlist(id) {
+window.toggleWishlist = function (id) {
   const product = allProducts.find((p) => p.id === id);
+  if (!product) return;
 
   if (wishlist.some((p) => p.id === id)) {
     wishlist = wishlist.filter((p) => p.id !== id);
@@ -111,17 +144,22 @@ function toggleWishlist(id) {
 
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
   renderProducts(allProducts);
-}
-document.getElementById("cartIcon").onclick = () => {
-  alert(`Cart Items: ${cart.length}`);
 };
 
-document.getElementById("wishlistIcon").onclick = () => {
-  alert(`Wishlist Items: ${wishlist.length}`);
-};
+/* ---------------- SAFE ICON HANDLERS ---------------- */
+
+const cartIcon = document.getElementById("cartIcon");
+if (cartIcon) {
+  cartIcon.onclick = () => {
+    alert(`Cart Items: ${cart.length}`);
+  };
+}
+
+const wishlistIcon = document.getElementById("wishlistIcon");
+if (wishlistIcon) {
+  wishlistIcon.onclick = () => {
+    alert(`Wishlist Items: ${wishlist.length}`);
+  };
+}
 
 window.addEventListener("focus", updateCartCount);
-
-if (user) {
-  console.log("Logged in as:", user.name);
-}

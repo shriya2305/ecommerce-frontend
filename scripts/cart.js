@@ -1,86 +1,65 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartItemsEl = document.getElementById("cartItems");
-const totalItemsEl = document.getElementById("totalItems");
-const totalPriceEl = document.getElementById("totalPrice");
-
+const cartItemsContainer = document.getElementById("cartItems");
+const cartTotalEl = document.getElementById("cartTotal");
 const checkoutBtn = document.getElementById("checkoutBtn");
 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 function renderCart() {
-  cartItemsEl.innerHTML = "";
+  cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartItemsEl.innerHTML = "<p>Your cart is empty.</p>";
-    totalItemsEl.textContent = 0;
-    totalPriceEl.textContent = 0;
+    cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+    cartTotalEl.textContent = "0";
+    checkoutBtn.disabled = true;
     return;
   }
 
-  let totalItems = 0;
-  let totalPrice = 0;
+  let total = 0;
 
-  cart.forEach((item) => {
-    totalItems += item.qty;
-    totalPrice += item.price * item.qty;
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
 
-    cartItemsEl.innerHTML += `
+    cartItemsContainer.innerHTML += `
       <div class="cart-item">
-        <img src="${item.image}" />
-        <div class="cart-info">
-          <h3>${item.title}</h3>
-          <p>$${item.price}</p>
-
-          <div class="cart-actions">
-            <button onclick="changeQty(${item.id}, -1)">−</button>
-            <span>${item.qty}</span>
-            <button onclick="changeQty(${item.id}, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(${item.id})">
-              Remove
-            </button>
-          </div>
+        <img src="${item.image}" width="80" />
+        <div>
+          <h4>${item.title.slice(0, 40)}</h4>
+          <p>$${item.price} × ${item.qty}</p>
         </div>
+        <button onclick="removeItem(${index})">❌</button>
       </div>
     `;
   });
 
-  totalItemsEl.textContent = totalItems;
-  totalPriceEl.textContent = totalPrice.toFixed(2);
+  cartTotalEl.textContent = total.toFixed(2);
+  checkoutBtn.disabled = false;
 }
 
-function changeQty(id, delta) {
-  const item = cart.find((p) => p.id === id);
-  if (!item) return;
-
-  item.qty += delta;
-  if (item.qty <= 0) {
-    cart = cart.filter((p) => p.id !== id);
-  }
-
-  saveAndRender();
-}
-
-function removeItem(id) {
-  cart = cart.filter((p) => p.id !== id);
-  saveAndRender();
-}
-
-function saveAndRender() {
+window.removeItem = function (index) {
+  cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
-}
+};
+
+checkoutBtn.onclick = () => {
+  window.location.href = "checkout.html";
+};
 
 renderCart();
+
 checkoutBtn.disabled = cart.length === 0;
 checkoutBtn.style.opacity = cart.length === 0 ? "0.5" : "1";
 checkoutBtn.style.cursor = cart.length === 0 ? "not-allowed" : "pointer";
 
-checkoutBtn.addEventListener("click", () => {
-  if (cart.length === 0) return;
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  if (!user) {
-    window.location.href = "auth.html";
-  } else {
-    window.location.href = "checkout.html";
-  }
-});
+checkoutBtn.onclick = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "auth.html";
+    } else {
+      window.location.href = "checkout.html";
+    }
+  });
+};

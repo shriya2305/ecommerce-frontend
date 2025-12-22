@@ -22,25 +22,11 @@ A fully responsive e-commerce website UI built using **HTML, CSS, and JavaScript
 - Firebase Authentication
 - REST APIs
 - Git & GitHub
-
----
-
-## 📁 Project Structure
-
-```
-ecommerce-frontend/
-├── index.html
-├── styles/
-├── scripts/
-├── assets/
-└── README.md
-```
-
 ---
 
 ## 🌐 Deployment
 
-Live deployment supported via **GitHub Pages**, **Netlify**, or **Vercel**.
+Live deployment supported **Netlify**.
 
 ---
 

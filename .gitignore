@@ -26,9 +26,4 @@ dist-ssr
 # Environment variables
 .env
 
-# OS files
-.DS_Store
-Thumbs.db
 
-# Node
-node_modules/

@@ -9,8 +9,6 @@ const signupForm = document.getElementById("signupForm");
 const loginError = document.getElementById("loginError");
 const signupError = document.getElementById("signupError");
 
-/* ---------- FORM SWITCHING ---------- */
-
 window.showSignup = () => {
   loginForm.classList.remove("active");
   signupForm.classList.add("active");
@@ -21,48 +19,31 @@ window.showLogin = () => {
   loginForm.classList.add("active");
 };
 
-/* ---------- SIGN UP ---------- */
-
-if (signupForm) {
-  signupForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    signupError.textContent = "";
-
-    const name = document.getElementById("signupName").value.trim();
-    const email = document.getElementById("signupEmail").value.trim();
-    const password = document.getElementById("signupPassword").value;
-    const confirm = document.getElementById("confirmPassword").value;
-
-    if (password !== confirm) {
-      signupError.textContent = "Passwords do not match.";
-      return;
-    }
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert(`Welcome ${name}! Account created successfully.`);
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      alert("Account created!");
       showLogin();
-    } catch (error) {
+    })
+    .catch((error) => {
       signupError.textContent = error.message;
-    }
-  });
-}
+    });
+});
 
-/* ---------- LOGIN ---------- */
-
-if (loginForm) {
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    loginError.textContent = "";
-
-    const email = document.getElementById("loginEmail").value.trim();
-    const password = document.getElementById("loginPassword").value;
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = "index.html";
-    } catch (error) {
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => (window.location.href = "index.html"))
+    .catch((error) => {
       loginError.textContent = error.message;
-    }
-  });
-}
+    });
+});
